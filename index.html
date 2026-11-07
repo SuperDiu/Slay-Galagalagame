@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SLAY.HTML — 2D Arena Shooter</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="style.css?v=26">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- ======= MENU ======= -->
+<div id="menu">
+  <div class="menuCard">
+    <h1>SLAY<span>.HTML</span></h1>
+    <p class="tag">2D top-down arena shooter — solo vs bots, straight in the browser</p>
+    <div class="row">
+      <input id="nameInput" maxlength="12" placeholder="Nickname" autocomplete="off">
+      <input id="serverInput" placeholder="empty = solo vs Bots" autocomplete="off">
+    </div>
+    <div id="classRow"></div>
+    <div class="row acctRow">
+      <input id="acctName" maxlength="12" placeholder="Account (optional)" autocomplete="off">
+      <input id="acctPass" type="password" maxlength="32" placeholder="Password (3+)" autocomplete="off">
+    </div>
+    <p class="acctHint">Fill to register / log in — XP &amp; level are saved in this browser<br>
+      Tip: disable Edge mouse gestures / extensions to avoid right-drag interference</p>
+    <div class="row bottom">
+      <label class="modeLab">Mode
+        <select id="modeSel">
+          <option value="ffa">FFA — Deathmatch (20 kills)</option>
+          <option value="tdm">TDM — Team Deathmatch (40)</option>
+          <option value="koth">KOTH — King of the Hill (150)</option>
+        </select>
+      </label>
+      <button id="playBtn">PLAY</button>
+    </div>
+    <div id="menuMsg"></div>
+    <div class="help">
+      <b>WASD</b> move · <b>Mouse</b> aim / shoot · <b>Right-click</b> aim (all guns) / scope (Sniper · Railgun) ·
+      <b>Q / Middle-click</b> grenade · <b>E / F</b> class skills · <b>1 / 2</b> swap weapon ·
+      <b>Tab</b> scores · <b>M</b> mute<br>
+      Aim: slower walk, much tighter accuracy. Sniper scope: wider view, dotted tracer,
+      -40% damage taken — but you can't move.
+    </div>
+  </div>
+</div>
+
+<!-- ======= HUD ======= -->
+<div id="hud" class="hidden">
+  <div id="modeChip">
+    <span id="modeLabel">FFA</span>
+    <span id="teamScore" class="hidden"><b class="red" id="redScore">0</b><i>:</i><b class="blu" id="blueScore">0</b></span>
+    <span id="acctChip" class="hidden"></span>
+    <span id="muteChip" class="hidden">MUTED</span>
+  </div>
+
+  <div id="killfeed"></div>
+  <div id="achWrap"></div>
+
+  <div id="blPanel">
+    <div id="bars">
+      <div class="bar lvl"><div id="xpFill"></div><span id="lvlText">LV 1</span></div>
+      <div class="bar hp"><div id="hpFill"></div><span id="hpText">100</span></div>
+      <div class="bar armor" id="armorBar"><div id="armorFill"></div><span id="armorText"></span></div>
+    </div>
+    <div id="buffs"></div>
+    <div id="skillRow">
+      <div id="skillBox">
+        <div id="skillCd"></div>
+        <span class="key">E</span>
+        <span id="skillName">DASH</span>
+        <span id="skillCdText"></span>
+      </div>
+      <div id="skillBox2">
+        <div id="skillCd2"></div>
+        <span class="key">F</span>
+        <span id="skillName2">RAPID</span>
+        <span id="skillCd2Text"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="weaponPanel">
+    <div id="slotList">
+      <div class="wslot" id="slot1"><span class="wkey">1</span><span class="wdot" id="wdot1"></span><span class="wname">Pistol</span><span class="wmag" id="mag1">12</span></div>
+      <div class="wslot" id="slot2"><span class="wkey">2</span><span class="wdot" id="wdot2"></span><span class="wname" id="name2">Rifle</span><span class="wmag" id="mag2">25</span></div>
+    </div>
+    <div id="ammoRow">
+      <div id="ammoBig"><span id="ammoCur">12</span><span class="ammoMax" id="ammoMax">/12</span></div>
+      <div id="ammoBar"><div id="ammoFill"></div></div>
+    </div>
+    <div id="grenPips"></div>
+  </div>
+
+  <canvas id="minimap" width="192" height="144"></canvas>
+
+  <div id="banner" class="hidden"><div id="bannerMain"></div><div id="bannerSub"></div></div>
+  <div id="respawn" class="hidden"></div>
+  <div id="reloadHint" class="hidden">RELOADING…</div>
+  <div id="toast"></div>
+</div>
+
+<!-- ======= SCOREBOARD ======= -->
+<div id="scoreboard" class="hidden">
+  <table>
+    <thead><tr><th>Player</th><th>Class</th><th>K</th><th>D</th><th>Score</th></tr></thead>
+    <tbody id="sbBody"></tbody>
+  </table>
+  <div id="sbHint">hold TAB</div>
+</div>
+
+<script src="localsim.js?v=1"></script>
+<script src="client.js?v=28"></script>
+</body>
+</html>
